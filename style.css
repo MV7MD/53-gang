@@ -1,0 +1,33 @@
+html { scroll-behavior: smooth; }
+body { margin: 0; padding: 0; width: 100vw; }
+
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #080808; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #e50914; border-radius: 4px; }
+
+.shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes shake {
+    10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-1deg); }
+    20%, 80% { transform: translate3d(4px, 0, 0) rotate(1deg); }
+    30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotate(-2deg); }
+    40%, 60% { transform: translate3d(6px, 0, 0) rotate(2deg); }
+}
+
+.mini-paper {
+    position: absolute;
+    background: linear-gradient(135deg, #f4f4f5, #a1a1aa);
+    color: #18181b;
+    font-size: 9px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 800;
+    width: 50px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    transition: all 0.3s ease;
+    bottom: 30px;
+    left: 50%;
+}

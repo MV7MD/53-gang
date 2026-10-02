@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ULTIMATE FIGHT NIGHT | 53 GANG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#050505] text-[#f5f5f3] font-['Rajdhani'] overflow-x-hidden selection:bg-[#e50914]">
+
+    <!-- Navbar -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full border border-[#e50914]" onerror="this.src='https://ui-avatars.com/api/?name=53&background=e50914&color=fff'">
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg leading-none">V FIGHT NIGHT</span>
+                    <span class="font-['Roboto_Mono'] text-[#e50914] text-[9px] tracking-widest mt-1">SEASON 05 // LIVE</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-bold text-xs text-zinc-400">
+                <a href="#home" class="hover:text-white transition">HOME</a>
+                <a href="#dashboard" class="hover:text-white transition">THE DRAW</a>
+                <a href="#bracket" class="hover:text-white transition">BRACKET</a>
+                <button onclick="resetTournament()" class="text-[#e50914] hover:text-red-400 transition">RESET ALL</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative w-full min-h-[85vh] flex flex-col items-center justify-center text-center px-6 pt-16">
+        <img src="assets/hero-bg.png" class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale pointer-events-none mix-blend-screen" alt="Hero">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/80 to-[#050505]"></div>
+        
+        <div class="relative z-10 max-w-4xl flex flex-col items-center">
+            <div class="bg-red-600/10 border border-red-600/30 px-5 py-2 rounded-full mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-[#e50914] rounded-full animate-pulse"></span>
+                <span class="font-['Roboto_Mono'] font-bold text-[10px] text-white uppercase tracking-widest">SEASON 05 • LOS SANTOS • LIVE EVENT</span>
+            </div>
+            <h1 class="text-6xl md:text-[6rem] font-black italic uppercase tracking-tighter mb-6 leading-none">
+                THE ULTIMATE<br/>
+                <span class="text-[#e50914] drop-shadow-[0_0_30px_rgba(229,9,20,0.6)]">FIGHT NIGHT</span>
+            </h1>
+            <p class="text-zinc-400 text-lg uppercase tracking-widest max-w-2xl mb-10 font-semibold">
+                More than a competition. A celebration of skill, dedication, and brotherhood.
+            </p>
+            <div class="flex gap-6">
+                <a href="#dashboard" class="bg-gradient-to-r from-[#760006] via-[#e50914] to-[#ff3540] border border-[#ff2632] px-10 py-4 rounded-md font-bold text-lg uppercase tracking-widest shadow-[0_0_35px_rgba(229,9,20,0.5)] hover:scale-105 transition-transform">
+                    Enter Setup
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section id="sponsors-section" class="w-full py-20 bg-[#0a0a0a] flex flex-col items-center border-y border-white/5">
+        <h2 class="text-sm font-bold text-[#e50914] tracking-[0.4em] uppercase mb-12">Official Sponsors & Organizers</h2>
+        <div class="w-full max-w-6xl mx-auto flex flex-wrap justify-center gap-8 px-6" id="sponsors-container"></div>
+    </section>
+
+    <!-- Dashboard (Setup & Draw) -->
+    <section id="dashboard" class="w-full py-24 bg-gradient-to-b from-[#070707] to-[#0b0b0d] flex flex-col items-center border-t border-white/5">
+        <h2 class="font-black text-4xl uppercase tracking-widest mb-16 text-center">Live Draw Console</h2>
+        <div class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 items-center">
+            
+            <!-- Draw Bowl -->
+            <div class="flex justify-center w-full">
+                <div id="draw-machine-card" onclick="drawTeam()" class="relative w-[300px] h-[300px] bg-gradient-to-b from-white/5 to-white/10 backdrop-blur-md border-b-[8px] border-l-[3px] border-r-[3px] border-[#e50914]/40 rounded-b-full rounded-t-xl flex flex-col items-center justify-end p-6 shadow-[0_20px_50px_rgba(229,9,20,0.15)] cursor-pointer transition-all hover:border-[#e50914]/70 hover:shadow-[0_20px_60px_rgba(229,9,20,0.3)] overflow-hidden">
+                    <div id="papers-container" class="absolute inset-0 flex items-end justify-center pb-8 pointer-events-none z-0"></div>
+                    
+                    <div class="z-10 bg-black/70 px-6 py-4 rounded-2xl backdrop-blur-sm border border-white/10 text-center flex flex-col items-center pointer-events-none mb-6">
+                       <i class="fa-solid fa-crosshairs text-2xl mb-2 text-[#e50914]"></i>
+                       <p id="machine-status-text" class="font-bold text-white text-xl tracking-widest uppercase">WAITING</p>
+                    </div>
+
+                    <div class="absolute top-4 flex gap-2 items-center bg-black/80 px-4 py-1.5 rounded-full border border-white/10 z-10 pointer-events-none">
+                        <span id="machine-remaining-text" class="font-['Roboto_Mono'] text-[#b7b8be] text-[10px] tracking-widest">CHAMBER READY</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setup Panel -->
+            <div id="setup-panel" class="bg-[#151515] border border-[#323238] rounded-2xl p-8 flex flex-col w-full transition-opacity duration-500">
+                <div class="flex justify-between items-center border-b border-white/5 pb-4 mb-6">
+                   <div>
+                     <h3 class="font-bold text-2xl uppercase">Registered Teams</h3>
+                     <span id="team-count" class="font-['Roboto_Mono'] text-zinc-500 text-[10px]">0 SLOTS OCCUPIED</span>
+                   </div>
+                   <span class="bg-green-500/10 border border-green-500/30 text-green-400 text-[10px] font-bold px-3 py-1 rounded-full">OPEN</span>
+                </div>
+
+                <div class="flex gap-3 mb-6">
+                  <input type="text" id="teamInput" class="flex-1 bg-black border border-white/10 h-12 px-4 rounded-md text-white outline-none focus:border-[#e50914] uppercase text-sm font-bold" placeholder="ENTER TEAM NAME...">
+                  <button onclick="addTeam()" class="bg-[#e50914] px-6 h-12 rounded-md font-bold uppercase hover:bg-white hover:text-black transition-colors">Add</button>
+                </div>
+
+                <div id="teamList" class="flex flex-col gap-2 h-[200px] overflow-y-auto custom-scrollbar pr-2 mb-6"></div>
+
+                <button id="generateBtn" onclick="generateTournament()" class="w-full bg-[#e50914] h-12 rounded-md font-bold uppercase tracking-widest shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all opacity-40 pointer-events-none">
+                  Generate Bracket
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bracket Section -->
+    <section id="bracket" class="w-full bg-[#050505] py-24 flex-col items-center border-t border-white/5 hidden relative">
+        <h2 id="bracket-title" class="font-black text-4xl text-white uppercase tracking-widest mb-10 text-center w-full z-20 pointer-events-none">Tournament Bracket</h2>
+        
+        <!-- حلبة الزوم (هنا نقلنا أزرار التحكم جواها عشان تفضل ظاهرة في الشاشة الكاملة) -->
+        <div id="bracket-wrapper" class="w-full h-[75vh] relative overflow-hidden border-y border-white/5 bg-[#0a0a0a]">
+            
+            <div id="bracket-container" class="absolute top-0 left-0 flex justify-center items-center gap-10 w-max p-12 cursor-grab active:cursor-grabbing">
+                <!-- Bracket will be injected here -->
+            </div>
+
+            <!-- أزرار الزوم + زرار الـ Fullscreen -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-50 bg-black/80 px-6 py-3 rounded-full border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+                <button onclick="zoomInBracket()" class="text-white hover:text-[#e50914] transition-colors" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus text-2xl"></i></button>
+                <div class="w-px h-6 bg-white/20 mx-2"></div>
+                <button onclick="zoomOutBracket()" class="text-white hover:text-[#e50914] transition-colors" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus text-2xl"></i></button>
+                <div class="w-px h-6 bg-white/20 mx-2"></div>
+                <button onclick="resetZoomBracket()" class="text-white hover:text-[#e50914] transition-colors" title="Auto Fit"><i class="fa-solid fa-crosshairs text-2xl"></i></button>
+                <div class="w-px h-6 bg-white/20 mx-2"></div>
+                <!-- زرار الشاشة الكاملة -->
+                <button onclick="toggleFullscreen()" class="text-white hover:text-[#e50914] transition-colors" title="Fullscreen">
+                    <i id="fs-icon" class="fa-solid fa-expand text-2xl"></i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Overlay Modal for Draw -->
+    <div id="drop-overlay" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="legendary-card" onclick="assignSlot()" class="bg-gradient-to-br from-[#4c0519] to-[#e50914] border-2 border-white rounded-[30px] shadow-[0_0_60px_rgba(229,9,20,0.6)] cursor-pointer hover:scale-105 transition-transform flex items-center justify-center">
+            <h2 id="drawn-team-name" class="font-black uppercase tracking-widest text-white text-center px-4 w-full truncate"></h2>
+        </div>
+        <div id="overlay-text-container" class="mt-[150px] flex flex-col items-center text-center transition-opacity duration-300">
+            <p id="overlay-text" class="text-[#e50914] text-xl font-bold mb-3 font-['Roboto_Mono'] tracking-widest uppercase animate-pulse">Assigning Slot...</p>
+            <p id="overlay-subtext" class="text-zinc-500 text-sm font-bold tracking-widest uppercase"><i class="fa-solid fa-play"></i> Click card to confirm</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="main-footer" class="w-full bg-[#050505] border-t border-white/10 py-8 text-center text-zinc-500 text-xs font-bold uppercase tracking-widest">
+        &copy; 2026 V FIGHT NIGHT • ALL MATCH DATA VERIFIED
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
